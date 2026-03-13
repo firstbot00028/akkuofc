@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akku | Digital Art Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #000000;
+            --gold: #d4af37;
+            --white: #ffffff;
+            --green-glow: #00ff00; /* Neon Green Edge */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        header {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ANIMATED NAME: AKKU */
+        .animated-name {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(4rem, 15vw, 9.5rem);
+            font-weight: 900;
+            letter-spacing: 15px;
+            background: linear-gradient(to right, #fff 20%, var(--green-glow) 40%, var(--green-glow) 60%, #fff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .tagline {
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--green-glow);
+            margin-top: 10px;
+            text-shadow: 0 0 10px var(--green-glow);
+        }
+
+        /* SCROLL ANIMATED GALLERY */
+        .container { max-width: 1300px; margin: 0 auto; padding: 50px 20px; }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .art-card {
+            position: relative;
+            aspect-ratio: 16 / 9; /* Landscape for FF Screenshots */
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1.5px solid var(--green-glow); /* Green Edge */
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2); 
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .art-card.reveal { opacity: 1; transform: translateY(0); }
+
+        .art-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .art-card:hover {
+            box-shadow: 0 0 30px var(--green-glow); /* Strong Glow on Hover */
+            border-color: #fff;
+        }
+
+        .art-card:hover img { transform: scale(1.1); }
+
+        .overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            display: flex;
+            justify-content: space-between;
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .art-card:hover .overlay { opacity: 1; }
+        .overlay span { font-size: 10px; color: var(--green-glow); font-weight: 600; letter-spacing: 1px; }
+
+        footer { padding: 60px 20px; text-align: center; color: #444; font-size: 10px; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="animated-name">AKKU</h1>
+        <p class="tagline">Sovereign Art & Visual Edits</p>
+    </header>
+
+    <div class="container">
+        <div class="gallery-grid" id="gallery"></div>
+    </div>
+
+    <footer>
+        <p>A MASTERPIECE VISION BY ADAM & REAL AIRA | 2026</p>
+    </footer>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+        
+        // Photos 1 muthal 12 vare Akku sequence-il load aakkunnu
+        for (let i = 1; i <= 12; i++) {
+            const card = document.createElement('div');
+            card.className = 'art-card';
+            card.innerHTML = `
+                <img src="akku${i}.jpg" alt="Artwork ${i}" onerror="this.src='https://via.placeholder.com/1280x720/111/00FF00?text=AKKU+IMAGE+${i}'">
+                <div class="overlay">
+                    <span>VISUAL #${i}</span>
+                    <span style="color:white; opacity:0.5;">Sovereign Edition</span>
+                </div>
+            `;
+            gallery.appendChild(card);
+        }
+
+        // Scroll Animation Logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.art-card').forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
