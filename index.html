@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akku | Digital Art Portfolio</title>
+    <title>Akku | Portrait Arts</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:wght@300;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg: #000000;
-            --gold: #d4af37;
             --white: #ffffff;
-            --green-glow: #00ff00; /* Neon Green Edge */
+            --green-glow: #00ff00;
+            --card-border: #1a1a1a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
         header {
-            height: 70vh;
+            height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -26,12 +26,11 @@
             text-align: center;
         }
 
-        /* ANIMATED NAME: AKKU */
         .animated-name {
             font-family: 'Cinzel', serif;
-            font-size: clamp(4rem, 15vw, 9.5rem);
+            font-size: clamp(3.5rem, 12vw, 8.5rem);
             font-weight: 900;
-            letter-spacing: 15px;
+            letter-spacing: 12px;
             background: linear-gradient(to right, #fff 20%, var(--green-glow) 40%, var(--green-glow) 60%, #fff 80%);
             background-size: 200% auto;
             color: #000;
@@ -45,33 +44,38 @@
 
         .tagline {
             font-size: 11px;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--green-glow);
             margin-top: 10px;
             text-shadow: 0 0 10px var(--green-glow);
         }
 
-        /* SCROLL ANIMATED GALLERY */
-        .container { max-width: 1300px; margin: 0 auto; padding: 50px 20px; }
+        /* 2. PORTRAIT SCROLL GALLERY */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Portrait width */
+            gap: 30px;
         }
 
         .art-card {
             position: relative;
-            aspect-ratio: 16 / 9; /* Landscape for FF Screenshots */
-            background: #111;
-            border-radius: 8px;
+            /* Portrait Aspect Ratio (e.g., 4:5 or 9:16) */
+            aspect-ratio: 9 / 14; 
+            background: #0a0a0a;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1.5px solid var(--green-glow); /* Green Edge */
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2); 
+            border: 2px solid var(--green-glow);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
             opacity: 0;
             transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.9s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
         .art-card.reveal { opacity: 1; transform: translateY(0); }
@@ -80,11 +84,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.7s ease;
         }
 
         .art-card:hover {
-            box-shadow: 0 0 30px var(--green-glow); /* Strong Glow on Hover */
+            box-shadow: 0 0 30px var(--green-glow);
             border-color: #fff;
         }
 
@@ -95,23 +99,21 @@
             bottom: 0; left: 0; width: 100%;
             padding: 20px;
             background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            display: flex;
-            justify-content: space-between;
             opacity: 0;
             transition: 0.4s;
         }
 
         .art-card:hover .overlay { opacity: 1; }
-        .overlay span { font-size: 10px; color: var(--green-glow); font-weight: 600; letter-spacing: 1px; }
+        .overlay span { font-size: 11px; color: var(--green-glow); letter-spacing: 1px; font-weight: 600; }
 
-        footer { padding: 60px 20px; text-align: center; color: #444; font-size: 10px; letter-spacing: 2px; }
+        footer { padding: 80px 20px; text-align: center; color: #444; font-size: 10px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <header>
         <h1 class="animated-name">AKKU</h1>
-        <p class="tagline">Sovereign Art & Visual Edits</p>
+        <p class="tagline">Sovereign Portrait Collection</p>
     </header>
 
     <div class="container">
@@ -119,34 +121,32 @@
     </div>
 
     <footer>
-        <p>A MASTERPIECE VISION BY ADAM & REAL AIRA | 2026</p>
+        <p>A MASTERPIECE VISION BY ADAM & REAL AIRA</p>
     </footer>
 
     <script>
         const gallery = document.getElementById('gallery');
         
-        // Photos 1 muthal 12 vare Akku sequence-il load aakkunnu
+        // Loop for 12 Portrait Photos (akku1.jpg to akku12.jpg)
         for (let i = 1; i <= 12; i++) {
             const card = document.createElement('div');
             card.className = 'art-card';
             card.innerHTML = `
-                <img src="akku${i}.jpg" alt="Artwork ${i}" onerror="this.src='https://via.placeholder.com/1280x720/111/00FF00?text=AKKU+IMAGE+${i}'">
+                <img src="akku${i}.jpg" alt="Edit ${i}" onerror="this.src='https://via.placeholder.com/900x1400/111/00FF00?text=PORTRAIT+${i}'">
                 <div class="overlay">
-                    <span>VISUAL #${i}</span>
-                    <span style="color:white; opacity:0.5;">Sovereign Edition</span>
+                    <span>ARTWORK #${i}</span>
                 </div>
             `;
             gallery.appendChild(card);
         }
 
-        // Scroll Animation Logic
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal');
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.art-card').forEach(card => observer.observe(card));
     </script>
